@@ -12,8 +12,10 @@ The client component of the credential dumper. Run this from any client machine 
 
 ## LAPS
 
-Service executable of KittyLitter.
+Service executable of KittyLitter.  
 
 ## Final Notes
 
 This project is purely for fun and chaos.
+
+![](images/execution.png)

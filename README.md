@@ -10,6 +10,10 @@ The server component of the credential dumper. This will run a modified version 
 
 The client component of the credential dumper. Run this from any client machine and pass the host you wish to retrieve credential material from as the first argument (e.g. `KittyScooper.exe localhost`)
 
+## LAPS
+
+Service executable of KittyLitter.
+
 ## Final Notes
 
 This project is purely for fun and chaos.

@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KittyLitter", "KittyLitter.csproj", "{E7A509A4-2D44-4E10-95BF-B86CB7767C2C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LAPS", "..\LAPS\LAPS.csproj", "{B2B8DD4F-EBA6-42A1-A53D-9A00FE785D66}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{E7A509A4-2D44-4E10-95BF-B86CB7767C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7A509A4-2D44-4E10-95BF-B86CB7767C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7A509A4-2D44-4E10-95BF-B86CB7767C2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2B8DD4F-EBA6-42A1-A53D-9A00FE785D66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B8DD4F-EBA6-42A1-A53D-9A00FE785D66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B8DD4F-EBA6-42A1-A53D-9A00FE785D66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2B8DD4F-EBA6-42A1-A53D-9A00FE785D66}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

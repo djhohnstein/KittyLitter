@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E7A509A4-2D44-4E10-95BF-B86CB7767C2C}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>KittyLitter</RootNamespace>
-    <AssemblyName>KittyLitter</AssemblyName>
+    <ProjectGuid>{B2B8DD4F-EBA6-42A1-A53D-9A00FE785D66}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>LAPS</RootNamespace>
+    <AssemblyName>LAPS</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -39,6 +39,7 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -49,14 +50,20 @@
     <Compile Include="IPCServers\MailSlotServer.cs" />
     <Compile Include="IPCServers\SMBServer.cs" />
     <Compile Include="IPCServers\TCPServer.cs" />
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Safety\ProcessWithAnonymousNamedPipeIO.cs" />
+    <Compile Include="Service1.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service1.Designer.cs">
+      <DependentUpon>Service1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WinAPI\Advapi32.cs" />
     <Compile Include="WinAPI\Kernel32.cs" />
     <Compile Include="WinAPI\Secur32.cs" />
@@ -69,10 +76,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\lsamanager.bin" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
+    <EmbeddedResource Include="Resources\lsamanager.bin" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

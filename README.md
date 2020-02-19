@@ -1,6 +1,6 @@
 # KittyLitter
 
-This project was made for an upcoming PRCCDC event. It is comprised of two components, `KittyLitter.exe` and `KittyScooper.exe`. This will bind across TCP, SMB, and MailSlot channels to communicate credential material to lowest privilege attackers.
+This project was made for an upcoming event. It is comprised of two components, `KittyLitter.exe` and `KittyScooper.exe`. This will bind across TCP, SMB, and MailSlot channels to communicate credential material to lowest privilege attackers.
 
 ## KittyLitter
 
